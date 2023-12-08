@@ -1,7 +1,8 @@
 import React from 'react'
-import db from '../api/db.json'
+import bdReview from '../api/db.json'
 
 const ReviewList = () => {  
+    const list = bdReview['reviews'];
     return <section data-name="review-list">
     <div className="hidden">
         <h4>Categories</h4>
@@ -14,27 +15,16 @@ const ReviewList = () => {
         </p>
     </div>
     <grid>
-        <div col="1/2">
-            <card>
-                <a href="/">
-                    <h5>Yvon Mau 2008 Seigneurs de Bergerac Rosé (Bergerac)</h5>
-                    <p>83 / 100</p>
-                </a>
-            </card>
-        </div>
-        <div col="1/2">
-            <card>
-                <a href="/">
-                    <h5>Château Tour des Gendres 2016 Vigne d'Albert Red (Bergerac)</h5>
-                    <p>87 / 100</p>
-                </a>
-            </card>
-        </div>
-        <div col="1/1" txt="c" className="hidden">
-            <card>
-                <a href="/"><h5>Add a review</h5></a>
-            </card>
-        </div>
+    {list.map((review) =>
+                <div col="1/2">
+                    <card>
+                        <a href="/">
+                            <h5>{review.title}</h5>
+                            <p> {review.points} / 100</p>
+                        </a>
+                    </card>
+                </div>
+            )}
     </grid>
 </section>
 }
