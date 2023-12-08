@@ -1,5 +1,6 @@
 import React from 'react'
 import logo from '../assets/logo.png'
+import { Link } from 'react-router-dom';
 
 const Layout = (props) => {
     return <div><nav fx="">
@@ -9,13 +10,13 @@ const Layout = (props) => {
     <div>
         <ul>
             <li>
-                <a href="/">Home</a>
+                <Link href="/">Home</Link>
             </li>
             <li>
-                <a href="/">Random</a>
+                <Link href="/">Random</Link>
             </li>
             <li>
-                <a href="/">Login</a>
+                <Link href="/">Login</Link>
             </li>
         </ul>
     </div>
