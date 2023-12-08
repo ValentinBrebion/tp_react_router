@@ -1,5 +1,5 @@
 import React from 'react'
-import dbjdon from '../api/db.json'
+import db from '../api/db.json'
 
 const ReviewList = () => {  
     return <section data-name="review-list">
