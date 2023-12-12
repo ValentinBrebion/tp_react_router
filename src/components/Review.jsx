@@ -1,21 +1,34 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
+import bdReview from '../api/db.json'
 
-const Review = () => {
- return <section data-name="review">
- <h2>Nouveau</h2>
- <h3>Henry Fessy 2012 Nouveau  (Beaujolais)</h3>
- <p>
-     Price : <b>9 $</b>
- </p>
- <blockquote>
-     <p>
-         This is a festive wine, with soft, ripe fruit and acidity, plus a red berry flavor.
-     </p>
-     <p txt="r">
-         <i>- Roger Voss</i>
-     </p>
- </blockquote>
-</section>
-}
+const getRandomInt = (max) => {
+    return Math.floor(Math.random() * max);
+  };
+  
+  const Review = () => {
+    const params = useParams();
+  
+    const review =
+    params.slug === 'random'
+      ? bdReview.reviews[getRandomInt(bdReview.reviews.length -1)]
+      : bdReview.reviews.find((review) => review.slug === params.slug);
 
-export default Review
+      return (
+        <section data-name="review">
+          <h2>Nouveau</h2>
+          <h3>{review.title}</h3>
+          <p>
+            Price : <b>{review.price} euros</b>
+          </p>
+          <blockquote>
+            <p>{review.description}</p>
+            <p txt="r">
+              <i>{review.winery}</i>
+            </p>
+          </blockquote>
+        </section>
+      );
+    };
+    
+    export default Review;

@@ -9,7 +9,7 @@ const App = () => {
     return <BrowserRouter>
                 <Layout>
                     <Routes>
-                        <Route path="/view" element={<Review/>} />
+                        <Route path="/view/:slug" element={<Review/>} />
                         <Route index element={<ReviewList />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>

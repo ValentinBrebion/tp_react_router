@@ -1,5 +1,6 @@
 import React from 'react'
 import bdReview from '../api/db.json'
+import { Link } from 'react-router-dom';
 
 const ReviewList = () => {  
     const list = bdReview['reviews'];
@@ -18,10 +19,10 @@ const ReviewList = () => {
     {list.map((review) =>
                 <div col="1/2">
                     <card>
-                        <a href="/">
+                        <Link to={"/view/"+review.slug}>
                             <h5>{review.title}</h5>
                             <p> {review.points} / 100</p>
-                        </a>
+                        </Link>
                     </card>
                 </div>
             )}
