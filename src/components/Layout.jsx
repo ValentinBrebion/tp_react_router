@@ -10,13 +10,13 @@ const Layout = (props) => {
     <div>
         <ul>
             <li>
-                <Link href="/">Home</Link>
+                <Link href="#">Home</Link>
             </li>
             <li>
                 <Link to={"/view/random"}>Random</Link>
             </li>
             <li>
-                <Link href="/">Login</Link>
+                <Link href="#">Login</Link>
             </li>
         </ul>
     </div>
