@@ -2,7 +2,7 @@
 import { useCurrency } from '@/composables/useCurrency';
 import { computed } from 'vue'
 
-const { format } = useCurrency({ currency: '€' });
+const { format, change } = useCurrency({ currency: '€' });
 
 const props = defineProps({
   product: {
@@ -15,6 +15,9 @@ const imgPath = computed(() => new URL(props.product.cover, import.meta.url).hre
 
 const discountedPrice = format(props.product.discountedPrice);
 const price = format(props.product.price);
+
+// To test currency changes
+setTimeout(() => change('$'), 5000);
 </script>
 
 <template>
