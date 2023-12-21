@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-orange-100 h-screen p-32;
+}
+
+.list {
+  @apply flex flex-row flex-wrap gap-4 justify-center;
+}
+
+.card {
+  @apply bg-base-100 shadow-xl w-96;
+}
