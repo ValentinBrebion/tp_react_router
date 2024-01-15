@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import bdReview from '../api/db.json'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 
 const ReviewList = () => { 
-
-    const [categor, setCategor] = useState('')
+    const navigate = useNavigate();
+  const { category } = useParams();
 
     const handleChange = (e) => {
-       setCategor(e.target.value)
+       const selectedCategorie = e.target.value;
+       if(selectedCategorie) 
+       {
+        navigate("/"+selectedCategorie);
+       }else {
+        navigate("/")
+       }
     }
     const list = bdReview['reviews'];
     const categoryList = bdReview['categories'];
@@ -16,9 +22,9 @@ const ReviewList = () => {
 
     return <section data-name="review-list">
     <div>
-        <h4>Categories</h4>
+        <h4>{category}</h4>
         <p>
-            <select onChange={(e) => handleChange(e)}>
+            <select onChange={handleChange} value={category}>
                 <option value="">All</option>
                 {categoryList.map((categorie) =>
                 <option value={categorie.key}>{categorie.label}</option>
@@ -27,7 +33,7 @@ const ReviewList = () => {
         </p>
     </div>
     <grid>
-    {list.filter((list) => list['category'] === categor).map((review) =>
+    {list.filter((list) => list['category'] === category).map((review) =>
                 <div col="1/2">
                     <card>
                         <Link to={"/view/"+review.slug}>
