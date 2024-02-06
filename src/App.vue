@@ -1,38 +1,42 @@
-<script setup></script>
+<script setup>
+import NavBar from './components/NavBar.vue'
+
+import { ref } from 'vue'
+const products = ref([
+  {
+    id: 1,
+    name: 'Canapé jaune',
+    cover: '../assets/canape-jaune.png',
+    details: 'Livraison sous 2 semaines',
+    price: 400,
+    discountedPrice: 250,
+    disabled: true
+  },
+  {
+    id: 2,
+    name: 'Chaise bois',
+    cover: '../assets/chaise-bois.png',
+    details: 'Livraison sous 3 jours',
+    price: 299,
+    disabled: true
+  },
+  {
+    id: 3,
+    name: 'Fauteuil jaune',
+    cover: '../assets/fauteuil-jaune.png',
+    details: 'Rupture de stock',
+    price: 500,
+    discountedPrice: 250,
+    disabled: true
+  }
+])
+</script>
 
 <template>
   <main>
-    <section class="list">
-      <div class="card">
-        <img src="./assets/canape-jaune.png" alt="canapé jaune" />
-        <div class="card-body">
-          <h2 class="card-title">Canapé jaune</h2>
-          <p>Livraison sous 2 semaines</p>
-          <div class="card-actions">
-            <button class="btn btn-primary">Commander</button>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <img src="./assets/chaise-bois.png" alt="chaise bois" />
-        <div class="card-body">
-          <h2 class="card-title">Chaise bois</h2>
-          <p>Livraison sous 3 jours</p>
-          <div class="card-actions">
-            <button class="btn btn-primary">Commander</button>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <img src="./assets/fauteuil-jaune.png" alt="fauteuil jaune" />
-        <div class="card-body">
-          <h2 class="card-title">Fauteuil jaune</h2>
-          <p>Rupture de stock</p>
-          <div class="card-actions">
-            <button class="btn btn-primary">Commander</button>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+    <NavBar></NavBar>
+    <RouterView v-slot="{ Component }">
+      <component :is="Component" :products="products" />
+    </RouterView>
+    </main>
 </template>

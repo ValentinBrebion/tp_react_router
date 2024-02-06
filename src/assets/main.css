@@ -4,12 +4,17 @@
 
 body {
   @apply bg-orange-100 h-screen p-32;
+  height:100vh;
 }
 
 .list {
-  @apply flex flex-row flex-wrap gap-4 justify-center;
+  @apply flex flex-row  gap-4 justify-center;
 }
 
 .card {
   @apply bg-base-100 shadow-xl w-96;
+}
+
+.router-link-active {
+  @apply btn-active;
 }
