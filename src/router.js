@@ -3,6 +3,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const AboutPage = () => import('@/pages/AboutPage.vue')
 const HomePage = () => import('@/pages/HomePage.vue')
 const OneProduct = () => import('@/pages/OneProduct.vue')
+const PanierProduct = () => import('@/pages/OneProduct.vue')
 
 export const router = createRouter({
     history: createWebHashHistory(),
@@ -22,6 +23,11 @@ export const router = createRouter({
             name: '/product',
             path: '/product/:id',
             component: OneProduct
+        },
+        {
+            name: '/panier',
+            path: '/panier',
+            component: PanierProduct
         },
     ]
 })

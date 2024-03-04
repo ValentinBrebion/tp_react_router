@@ -11,6 +11,12 @@
           <li>
             <RouterLink to="/about" class="btn btn-ghost"> About </RouterLink>
           </li>
+          <li>
+            <RouterLink to="/panier" class="btn btn-ghost indicator">
+              <span class="indicator-item badge badge-secondary">{{ store.cartLength }}</span>
+              <img src="../../src/assets/panier.png" style="width: 30px; height: 30px;">
+            </RouterLink>
+          </li>
         </ul>
       </div>
     </div>
@@ -18,5 +24,6 @@
   <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 const { push } = useRouter();
-
+import { useCartStore } from '../stores/cart'
+const store = useCartStore()
 </script>
