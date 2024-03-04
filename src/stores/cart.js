@@ -39,5 +39,8 @@ export const useCartStore = defineStore('cart', {
 		addToCart(product) {
       this.cart.push(product)
     },
+    deleteProduct(product) {
+        this.cart.pop(product)
+    }
 	}
 });
