@@ -1,41 +1,88 @@
-<template>
-    <h1>Panier</h1>
-    <table class="table">
-        <tbody>
-            <tr>
-                <th scope="col">Nom</th>
-                <th scope="col">Prix</th>
-                <th scope="col">Quantité</th>
-                <th scope="col">Supprimé</th>
-            </tr>
-            <tr v-for="(cartStore, index) in store.cart" :key="index">
-                <th scope="row">{{ cartStore.name }}</th>
-                <td>{{ cartStore.price }}</td>
-                <td><input type="number" id="tentacles" name="tentacles" min="0" max="100" /></td>
-                <td><button @click="store.deleteProduct(product)"><img src="../assets/poubelle.png" style="width: 30px; height: 30px;"></button></td>
-            </tr>
-        </tbody>
-    </table>
-    <h1>Prix total avant remise</h1> : 
-</template>
+<script setup>
+import { computed } from 'vue';
+import { useCartStore } from '../stores/cart.js'
+const store = useCartStore()
 
-<script>
-import { useCartStore } from '../stores/cart.js';
-
-export default {
-    setup() {
-        const store = useCartStore();
-        return {
-            store
-        };
+const itemsCart = computed(() => {
+  let result = {}
+  store.cart.forEach((product) => {
+    if (result[product.id]) {
+      result[product.id].quantity++
+    } else {
+      result[product.id] = {
+        ...product,
+        quantity: 1
+      }
     }
-};
-</script>
+  })
 
-<style>
-.table {
-    display: flex;
-    flex-direction: row;
-    width:100%;
-}
-</style>
+  return result
+})
+</script>
+<template>
+	<h2>Votre Panier</h2>
+  <div class="overflow-x-auto">
+    <table class="table">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Prix</th>
+          <th>Quantité</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in itemsCart" :key="item.id">
+          <td>
+            <div class="font-bold">{{ item.name }}</div>
+          </td>
+          <td>
+            <p
+              v-if="item.discountedPrice"
+              class="text-lg font-bold text-blue-500 dark:text-gray-400"
+            >
+              {{ format(item.discountedPrice).value }}
+            </p>
+            <span
+              class="text-gray-500 dark:text-gray-400"
+              :class="{
+                'text-lg font-bold': !item.discountedPrice,
+                'line-through text-xs': item.discountedPrice
+              }"
+              >{{ format(item.price).value }}
+            </span>
+          </td>
+          <td>
+            <div class="flex items-center justify-items-center">
+              <button class="btn" @click="store.removeOneFromCart(item.id)">-</button>
+              <span class="w-8 block text-center">
+                {{ item.quantity }}
+              </span>
+              <button class="btn" @click="store.addToCart(item)">+</button>
+            </div>
+          </td>
+          <th>
+            <button class="btn btn-ghost" @click="store.removeAllFromCart(item.id)">
+              <IconTrash></IconTrash>
+            </button>
+          </th>
+        </tr>
+      </tbody>
+			<tfoot>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>Prix total avant remise</th>
+          <th>{{ format(store.totalRawCart).value }}</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>Prix total avec remise</th>
+          <th>{{ format(store.totalCart).value }}</th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</template>

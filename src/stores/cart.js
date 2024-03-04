@@ -33,7 +33,15 @@ export const useCartStore = defineStore('cart', {
         ]
 	}),
     getters: {
-		cartLength: (state) => state.cart.length
+		cartLength: (state) => state.cart.length,
+    totalRawCart: (state) => state.cart.map((p) => p.price).reduce((acc, val) => acc + val, 0),
+    totalCart: (state) => {
+      return state.cart
+        .map((p) => {
+          return p.discountedPrice ?? p.price
+        })
+        .reduce((acc, val) => acc + val, 0)
+    }
 	},
     actions: {
 		addToCart(product) {
